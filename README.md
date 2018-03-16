@@ -14,7 +14,7 @@ Age-calculator is a web application built with javascript that allows for users 
 * Navigate to the cloned directory in a terminal capable of running npm commands.
 * Run the command >npm install
 * If you would like to test the specs, Run the command >npm test
-* If you would like to run the application, Run the command >dotnet run start
+* If you would like to run the application, Run the command >npm run start
 * Navigate to localhost:8080 in your browser
 
 ## Specifications
