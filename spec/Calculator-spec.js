@@ -45,6 +45,6 @@ describe('Calculator', function() {
     expect(myCalculator.checkYearsRemainingOnPlanet(e, "Mercury")).toEqual(258);
     expect(myCalculator.checkYearsRemainingOnPlanet(e, "Venus")).toEqual(100);
     expect(myCalculator.checkYearsRemainingOnPlanet(e, "Mars")).toEqual(32);
-    expect(myCalculator.checkYearsRemainingOnPlanet(e, "Jupiter")).toEqual(5); 
+    expect(myCalculator.checkYearsRemainingOnPlanet(e, "Jupiter")).toEqual(5);
   })
 })
