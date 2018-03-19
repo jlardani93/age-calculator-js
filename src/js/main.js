@@ -7,12 +7,15 @@ $(document).ready(function() {
   let textScroll = $("#textScroll");
   let docHeight = $(document).height();
   let movingDown = true;
+  let blown = false;
+  let tempShadowValue = 0;
+  let sizeScaleValue = 1;
 
   textScroll.css("left", ($(document).width()-textScroll.width())/2);
 
-  console.log(textScroll.css("top"));
-  requestAnimationFrame(scrollImage);
+  requestAnimationFrame(() => {scrollImage(1)});
   requestAnimationFrame(function(){scrollText(1)});
+  requestAnimationFrame(() => {glow()});
 
   function scrollText(){
     let increment = (movingDown) ? 1 : -1;
@@ -24,16 +27,30 @@ $(document).ready(function() {
     requestAnimationFrame(function(){scrollText()});
   }
 
-  function scrollImage(){
-    let currentImage = $("#imgScroller img[class~='shown']");
-    let currentIndex = currentImage.index();
-    let nextIndex = ((currentIndex + 1) % ($("#imgScroller img").length));
-    currentImage.fadeOut(1200, function(){
-      currentImage.removeClass('shown');
-      $(`#imgScroller img:eq(${nextIndex})`).fadeIn(1200).addClass('shown');
-    })
-    requestAnimationFrame(scrollImage);
+  function scrollImage(count){
+    let counter = count;
+    if (count % 300 === 0){
+      let currentImage = $("#imgScroller img[class~='shown']");
+      let currentIndex = currentImage.index();
+      let nextIndex = ((currentIndex + 1) % ($("#imgScroller img").length));
+      currentImage.fadeOut(1200, function(){
+        currentImage.removeClass('shown');
+        $(`#imgScroller img:eq(${nextIndex})`).fadeIn(1200).addClass('shown');
+      });
+    };
+    requestAnimationFrame(() => {scrollImage(counter+1)});
     // .removeClass('shown');
     // $(`#imgScroller img:eq(${nextIndex})`).fadeIn().addClass('shown');
   }
+
+  function glow(){
+    (!blown) ? tempShadowValue++ : tempShadowValue--;
+    (blown) ? sizeScaleValue = sizeScaleValue + 0.002 : sizeScaleValue = sizeScaleValue - 0.002;
+    $("#startGame").css("box-shadow", "0px 0px " + tempShadowValue + "px white");
+    $("#startGame").css("transform", `scale(${sizeScaleValue}, ${sizeScaleValue})`);
+    if (tempShadowValue === 100) blown = true;
+    if (tempShadowValue === 0) blown = false;
+    requestAnimationFrame(function(){glow()})
+  }
+
 })
